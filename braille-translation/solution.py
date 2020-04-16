@@ -6,28 +6,27 @@ def solution(s):
     if type(s) is not str:
         return output_str
     
-    for char in str:
-        output_str += encode(char)
+    for char in s:
+        output_str += braille_encode(char)
     
     return output_str
 
-def encode(char):
+def braille_encode(char):
     # The encoding pattern followed here is given at https://braillebug.org/braillebug_answers.asp#w
 
     # Known data for encoding
     capital_char_prefix = "000001"
     space_char_prefix   = "000000"
     letter_arr = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','x','y','z']
-    w = "010111" # found by: ( '0' + bin(22 + 1)[2:] )
+    w = "010111" # w is an exception to the pattern. Binary string is found by: ( '0' + bin(22 + 1)[2:] )
     first10_letter_values = [32, 48, 36, 38, 34, 52, 54, 50, 20, 22]
 
     # Begin building encoded char
-    encoded_str = ""
-    
     if char == ' ':
         return space_char_prefix
 
-    if char.isUpper():
+    encoded_str = ""
+    if char.isupper():
         encoded_str += capital_char_prefix
 
     # Find which row and column the character belongs to
@@ -35,9 +34,9 @@ def encode(char):
     letter_row    = letter_arr.index(char) / len(first10_letter_values)
     # The 3rd dot is raised if it's in the second row, and the 3rd and 6th dot is raised in the third row
     letter_decimal_value = first10_letter_values[column]
-    if letter_row == 1
+    if letter_row == 1:
         letter_decimal_value += 8
-    elif letter_row == 2
+    elif letter_row == 2:
         letter_decimal_value += (8 + 1)
     
     letter_binary_value += bin(letter_decimal_value)[2:] # omit the '0b' prefix
@@ -59,8 +58,12 @@ def main():
     # Run all three test cases
     for i in range(0, len(line_arr), 2):
         text_str   = line[i]
-        solved_str = reverse_engineer( text_str )
+        solved_str = solution( text_str )
         binary_str = line_arr[i + 1]
+        if solved_str == binary_str:
+            print "TEST CASE #" + i + "PASSED"
+        else:
+            print "TEST CASE #" + i + "FAILED"
 
 if __name__ == "__main__":
     main()
