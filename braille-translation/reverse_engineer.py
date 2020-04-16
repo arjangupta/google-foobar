@@ -1,15 +1,14 @@
-def reverse_engineer(input_str, text_str):
-
+def reverse_engineer(text_str, input_str):
     # Check input str
     for char in input_str:
         if char != '0' and char != '1':
             print("Something's wrong with your damn input.")
             return
     
-    print("The given text string is: " + text_str)
-    print("Length of the text string is", len(text_str))
-    print("Length of the input string is", len(input_str))
-    print("The input string length / 6 is", ( len(input_str) / 6) )
+    print "The given text string is: " + text_str
+    print "Length of the text string is", len(text_str)
+    print "Length of the binary string is", len(input_str)
+    print "The binary string length / 6 is", ( len(input_str) / 6)
     
     if ( len(input_str) / 6 ) < len(text_str):
         print("Error: the input string length / 6 is less than the text string length.")
@@ -26,15 +25,13 @@ def reverse_engineer(input_str, text_str):
         i += 6
 
 def main():
-    text_str_arr = []
-    input_str_arr = []
-    
-    for i in range(3):
-        text_str[i] = input()
-        input_str[i] = input()
-    
-    for i in range(3):
-        reverse_engineer(text_str[i], input_str[i])
+    # Read file without new lines
+    test_cases_file = open("test_cases.txt")
+    line_arr = [line[:-1] for line in test_cases_file]
+
+    # Reverse engineer for all three test cases
+    for i in range(0, len(line_arr), 2):
+        reverse_engineer( line_arr[i], line_arr[i + 1] )
 
 if __name__ == "__main__":
     main()
