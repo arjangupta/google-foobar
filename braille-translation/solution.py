@@ -18,10 +18,10 @@ def braille_encode(char):
     capital_char_prefix = "000001"
     space_char_prefix   = "000000"
     letter_arr = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','x','y','z']
-    w = "010111" # w is an exception to the pattern. Binary string is found by: ( '0' + bin(22 + 1)[2:] )
+    w_encoding = "010111" # w is an exception to the pattern. Binary string is found by: ( '0' + bin(22 + 1)[2:] )
     first10_letter_values = [32, 48, 36, 38, 34, 52, 54, 50, 20, 22]
 
-    # Begin building encoded char
+    # Begin building encoded char string
     if char == ' ':
         return space_char_prefix
 
@@ -29,6 +29,10 @@ def braille_encode(char):
     if char.isupper():
         encoded_str += capital_char_prefix
         char = char.lower()
+
+    if char == 'w':
+        encoded_str += w_encoding
+        return encoded_str
 
     # Find which row and column the character belongs to
     letter_column = letter_arr.index(char) % len(first10_letter_values)  
@@ -62,9 +66,9 @@ def main():
         solved_str = solution( text_str )
         binary_str = line_arr[i + 1]
         if solved_str == binary_str:
-            print "TEST CASE #" + i + "PASSED"
+            print "TEST CASE #" + str(i) + " PASSED"
         else:
-            print "TEST CASE #" + i + "FAILED"
+            print "TEST CASE #" + str(i) + " FAILED"
 
 if __name__ == "__main__":
     main()
