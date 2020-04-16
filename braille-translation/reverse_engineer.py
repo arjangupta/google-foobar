@@ -5,6 +5,7 @@ def reverse_engineer(text_str, input_str):
             print("Something's wrong with your damn input.")
             return
     
+    print "--------- TEST CASE ---------"
     print "The given text string is: " + text_str
     print "Length of the text string is", len(text_str)
     print "Length of the binary string is", len(input_str)
@@ -16,13 +17,21 @@ def reverse_engineer(text_str, input_str):
     
     print("Now printing the corresponding char encodings:")
 
+    encodings_dict = {}
     i = 0
     for char in text_str:
         if char.isupper():
-            print("cap_char: " + input_str[i:(i+6)])
+            encodings_dict["cap_char"] = input_str[i:(i+6)]
             i += 6
-        print(char.lower() + ': '  + input_str[i:(i+6)])
+
+        if char == ' ':
+            encodings_dict["space_char"] = input_str[i:(i+6)]
+        else:
+            encodings_dict[char.lower()] = input_str[i:(i+6)]
         i += 6
+    
+    for key in sorted(encodings_dict.keys()):
+        print key + ": " + encodings_dict[key]
 
 def main():
     # Read file without new lines
