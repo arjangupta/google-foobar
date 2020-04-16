@@ -28,18 +28,19 @@ def braille_encode(char):
     encoded_str = ""
     if char.isupper():
         encoded_str += capital_char_prefix
+        char = char.lower()
 
     # Find which row and column the character belongs to
     letter_column = letter_arr.index(char) % len(first10_letter_values)  
     letter_row    = letter_arr.index(char) / len(first10_letter_values)
     # The 3rd dot is raised if it's in the second row, and the 3rd and 6th dot is raised in the third row
-    letter_decimal_value = first10_letter_values[column]
+    letter_decimal_value = first10_letter_values[letter_column]
     if letter_row == 1:
         letter_decimal_value += 8
     elif letter_row == 2:
         letter_decimal_value += (8 + 1)
     
-    letter_binary_value += bin(letter_decimal_value)[2:] # omit the '0b' prefix
+    letter_binary_value = bin(letter_decimal_value)[2:] # omit the '0b' prefix
 
     # Ensure that the binary string has a length of 6
     if len(letter_binary_value) < 6:
@@ -57,7 +58,7 @@ def main():
 
     # Run all three test cases
     for i in range(0, len(line_arr), 2):
-        text_str   = line[i]
+        text_str   = line_arr[i]
         solved_str = solution( text_str )
         binary_str = line_arr[i + 1]
         if solved_str == binary_str:
