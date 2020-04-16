@@ -10,7 +10,7 @@ def reverse_engineer(text_str, binary_str):
     print "The given text string is: " + text_str
     print "Length of the text string is", len(text_str)
     print "Length of the binary string is", len(binary_str)
-    print "The binary string length / 6 is", ( len(binary_str) / 6)
+    print "The binary string length / 6 is", ( len(binary_str) / 6 )
     
     # Ensure binary_str vs text_str makes sense
     if ( len(binary_str) / 6 ) < len(text_str):
@@ -35,7 +35,7 @@ def reverse_engineer(text_str, binary_str):
     non_letter_encoding = {}
     for key in sorted(encodings_dict.keys()):
         if key != "space_char" and key != "cap_char":
-            print key + ": " + encodings_dict[key]
+            print key + ": " + encodings_dict[key] + " =", int(encodings_dict[key], base=2)
         else:
             non_letter_encoding[key] = encodings_dict[key]
     
