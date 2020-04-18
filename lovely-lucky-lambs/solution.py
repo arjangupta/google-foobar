@@ -48,22 +48,22 @@ def calculate_generous_distribution(total_lambs):
             # Hand out a lamb
             number_of_henchmen += 1
             lambs_handed_out_so_far += lamb_amount_for_next_henchman
-        # else:
-        #     temp_lambs_so_far = lambs_handed_out_so_far - first_subordinate_lambs
-        #     temp_num_henchmen = number_of_henchmen - 1
-        #     second_subordinate_lambs /= 2
-        #     first_subordinate_lambs  /= 2
-        #     temp_num_henchmen += calculate_stingy_distribution(total_lambs, temp_lambs_so_far, 
-        #                                            first_subordinate_lambs, second_subordinate_lambs)
-        #     if number_of_henchmen < temp_num_henchmen:
-        #         number_of_henchmen = temp_num_henchmen
+        else:
+            temp_lambs_so_far = lambs_handed_out_so_far - first_subordinate_lambs
+            temp_num_henchmen = number_of_henchmen - 1
+            second_subordinate_lambs /= 2
+            first_subordinate_lambs  /= 2
+            temp_num_henchmen += calculate_stingy_distribution(total_lambs, temp_lambs_so_far, 
+                                                   first_subordinate_lambs, second_subordinate_lambs)
+            if number_of_henchmen < temp_num_henchmen:
+                number_of_henchmen = temp_num_henchmen
     return number_of_henchmen
 
 def test_case(total_lambs, computed_result, expected_result):
     if computed_result == expected_result:
         print "Test case passed for", total_lambs, "LAMBs"
     else:
-        print "Test case failed for", total_lambs, "LAMBs"
+        print "Test case FAILED for", total_lambs, "LAMBs"
 
 def main():
     total_lambs = 10
