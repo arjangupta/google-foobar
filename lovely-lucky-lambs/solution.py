@@ -1,21 +1,16 @@
 def solution(total_lambs):
     if total_lambs <= 0 or total_lambs >= 10**9:
         return 0
-    # Get number of henchman you can give a stingy distribution to
-    num_henchmen_stingy_distribution   = calculate_stingy_distribution(total_lambs)
-    # Get number of henchmen you can give a generous distribution to
-    num_henchmen_generous_distribution = calculate_generous_distribution(total_lambs)   
-    # Return the difference
-    return (num_henchmen_stingy_distribution - num_henchmen_generous_distribution)
+    # Return the difference between the number of henchmen in stingy and generous distributions
+    return (stingy_distribution(total_lambs) - generous_distribution(total_lambs))
 
-def calculate_stingy_distribution(total_lambs, lambs_so_far=0, first_sub_lambs=0, second_sub_lambs=0):
+def stingy_distribution(total_lambs):
     # Traverse the stingy linked list
-    lambs_handed_out_so_far  = lambs_so_far
+    lambs_handed_out_so_far  = 0
     number_of_henchmen       = 0
-    first_subordinate_lambs  = first_sub_lambs
-    second_subordinate_lambs = second_sub_lambs
-    lamb_amount_for_next_henchman = 1 if (first_subordinate_lambs + second_subordinate_lambs) == 0 \
-                                    else first_subordinate_lambs + second_subordinate_lambs
+    first_subordinate_lambs  = 0
+    second_subordinate_lambs = 0
+    lamb_amount_for_next_henchman = 1
     while lambs_handed_out_so_far + lamb_amount_for_next_henchman <= total_lambs:
         # Hand out a lamb
         number_of_henchmen += 1
@@ -27,7 +22,7 @@ def calculate_stingy_distribution(total_lambs, lambs_so_far=0, first_sub_lambs=0
         lamb_amount_for_next_henchman = first_subordinate_lambs + second_subordinate_lambs
     return number_of_henchmen
 
-def calculate_generous_distribution(total_lambs):
+def generous_distribution(total_lambs):
     # Traverse the generous linked list
     lambs_handed_out_so_far  = 0
     number_of_henchmen       = 0
@@ -41,9 +36,9 @@ def calculate_generous_distribution(total_lambs):
     else:
         first_subordinate_lambs  = lamb_amount_for_next_henchman / 2
         second_subordinate_lambs = first_subordinate_lambs / 2
-        # Try to give the next henchman the sum of the 2 subordinates
+        # Try to give the next henchman the sum of the 2 subordinates's LAMBs
         lamb_amount_for_next_henchman = first_subordinate_lambs + second_subordinate_lambs
-        if lambs_handed_out_so_far + lamb_amount_for_next_henchman < total_lambs:
+        if lambs_handed_out_so_far + lamb_amount_for_next_henchman < total_lambs: # this is < and not <= because Foobar's test cases are buggy
             # Hand out a lamb
             number_of_henchmen += 1
     return number_of_henchmen
