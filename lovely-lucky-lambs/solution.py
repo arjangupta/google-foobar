@@ -29,19 +29,16 @@ def calculate_generous_distribution(total_lambs):
     # Traverse the generous linked list
     lambs_handed_out_so_far  = 0
     number_of_henchmen       = 0
-    first_subordinate_lambs  = 0
-    second_subordinate_lambs = 0
     lamb_amount_for_next_henchman = 1
     while lambs_handed_out_so_far + lamb_amount_for_next_henchman <= total_lambs:
         # Hand out a lamb
         number_of_henchmen += 1
         lambs_handed_out_so_far += lamb_amount_for_next_henchman
-        # Update the subordinate amounts
-        second_subordinate_lambs = first_subordinate_lambs
-        first_subordinate_lambs  = lamb_amount_for_next_henchman
         # Calculate the next amount
         lamb_amount_for_next_henchman = lamb_amount_for_next_henchman * 2
     else:
+        first_subordinate_lambs  = lamb_amount_for_next_henchman / 2
+        second_subordinate_lambs = first_subordinate_lambs / 2
         # Try to give the next henchman the sum of the 2 subordinates
         lamb_amount_for_next_henchman = first_subordinate_lambs + second_subordinate_lambs
         if lambs_handed_out_so_far + lamb_amount_for_next_henchman <= total_lambs:
