@@ -1,0 +1,7 @@
+I just finished the Lovely Lucky LAMBs challenge.
+It seems that in the test cases, there is a bug in the calculation of
+the special case generous distribution (e.g. when total_labs is 223). 
+For paying the senior-most henchman in the generous distribution of such
+a case, the sum of the LAMBs given to the next two subordinates should be 
+less than or equal to the remaining number of LAMBs, not strictly less
+than. Thanks for adding a feedback command!
