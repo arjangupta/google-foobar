@@ -1,4 +1,6 @@
 def solution(total_lambs):
+    if total_lambs <= 0 or total_lambs >= 10**9:
+        return 0
     # Get number of henchman you can give a stingy distribution to
     num_henchmen_stingy_distribution   = calculate_stingy_distribution(total_lambs)
     # Get number of henchmen you can give a generous distribution to
@@ -41,19 +43,9 @@ def calculate_generous_distribution(total_lambs):
         second_subordinate_lambs = first_subordinate_lambs / 2
         # Try to give the next henchman the sum of the 2 subordinates
         lamb_amount_for_next_henchman = first_subordinate_lambs + second_subordinate_lambs
-        if lambs_handed_out_so_far + lamb_amount_for_next_henchman <= total_lambs:
+        if lambs_handed_out_so_far + lamb_amount_for_next_henchman < total_lambs:
             # Hand out a lamb
             number_of_henchmen += 1
-            lambs_handed_out_so_far += lamb_amount_for_next_henchman
-        else:
-            temp_lambs_so_far = lambs_handed_out_so_far - first_subordinate_lambs
-            temp_num_henchmen = number_of_henchmen - 1
-            second_subordinate_lambs /= 2
-            first_subordinate_lambs  /= 2
-            temp_num_henchmen += calculate_stingy_distribution(total_lambs, temp_lambs_so_far, 
-                                                   first_subordinate_lambs, second_subordinate_lambs)
-            if number_of_henchmen < temp_num_henchmen:
-                number_of_henchmen = temp_num_henchmen
     return number_of_henchmen
 
 def test_case(total_lambs, computed_result, expected_result):
@@ -73,7 +65,7 @@ def main():
 
     total_lambs = 223
     result      = solution(total_lambs)
-    test_case(total_lambs, result, 2)
+    test_case(total_lambs, result, 3)
 
     total_lambs = 1
     result      = solution(total_lambs)
@@ -81,7 +73,19 @@ def main():
 
     total_lambs = 383
     result      = solution(total_lambs)
-    test_case(total_lambs, result, 3)
+    test_case(total_lambs, result, 4)
+
+    total_lambs = 0
+    result      = solution(total_lambs)
+    test_case(total_lambs, result, 0)
+
+    total_lambs = -1
+    result      = solution(total_lambs)
+    test_case(total_lambs, result, 0)
+
+    total_lambs = 10**9
+    result      = solution(total_lambs)
+    test_case(total_lambs, result, 0)
 
 if __name__ == "__main__":
     main()
