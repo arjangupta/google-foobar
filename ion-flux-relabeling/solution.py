@@ -1,11 +1,10 @@
-# Returns the array of parents
+# Returns the list of parents
 # h is the height of the tree
-# q is the list of elements in tree for which 
-# parents are to be found
+# q is the list of elements whose parents are to be found
 def solution(h, q):
     return [find_parent(h, i) for i in q]
 
-# Returns a parent for a given node of the tree
+# Returns a parent for a given element of the tree
 def find_parent(height, element):
     # Return -1 if no parent exists or element doesn't
     # belong to the tree
