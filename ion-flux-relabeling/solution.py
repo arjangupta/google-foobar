@@ -18,24 +18,26 @@ def find_parent(height, element):
     # 2. The post order traversal list is an ascending order
     #    integer list from 1 to (2**h - 1)
     whole_tree       = range(1, absolute_parent + 1)
-    current_sublist  = whole_tree
+    current_subtree  = whole_tree
     current_parent   = -1
     current_height   = height
     found_parent     = 0
-    left_sublist     = []
-    right_sublist    = []
-    # Begin the sublisting algorithm
+    left_subtree     = []
+    right_subtree    = []
+    # Begin the subtreeing algorithm
     while found_parent == 0:
-        current_parent  = current_sublist[-1]
+        current_parent  = current_subtree[-1]
+        # Descend by one level
         current_height -= 1
-        left_sublist    = current_sublist[ : (2**current_height - 1) ]
-        right_sublist   = current_sublist[ (2**current_height - 1) : -1 ]
-        if element == left_sublist[-1] or element == right_sublist[-1]:
+        left_subtree    = current_subtree[ : (2**current_height - 1) ]
+        right_subtree   = current_subtree[ (2**current_height - 1) : -1 ]
+        # Pick a subtree
+        if element == left_subtree[-1] or element == right_subtree[-1]:
             found_parent = current_parent
-        elif element in left_sublist:
-            current_sublist = left_sublist
+        elif element in left_subtree:
+            current_subtree = left_subtree
         else:
-            current_sublist = right_sublist
+            current_subtree = right_subtree
     return found_parent
 
 def test_case(h, q, p):
