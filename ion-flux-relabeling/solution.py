@@ -4,11 +4,12 @@
 # parents are to be found
 def solution(h, q):
     p = [find_parent(h, i) for i in q]
-    print p # TODO: remove
+    # print p # TODO: remove
     return p
 
 # Returns a parent for a given node of the tree
 def find_parent(height, element):
+    # print "height, element are", height, element TODO: remove
     absolute_parent = (2**height - 1)
     if element >= absolute_parent:
         return -1
@@ -27,15 +28,15 @@ def find_parent(height, element):
     left_sublist     = []
     right_sublist    = []
     while found_parent == 0:
-        print "current list is", current_sublist
+        # print "current list is", current_sublist TODO: remove
         current_parent  = current_sublist[-1]
         current_height -= 1
         left_sublist    = current_sublist[ : (2**current_height - 1) ]
         right_sublist   = current_sublist[ (2**current_height - 1) : -1 ]
-        print "Left sublist is", left_sublist
-        print "Right sublist is", right_sublist
+        # print "Left sublist is", left_sublist TODO: remove
+        # print "Right sublist is", right_sublist TODO: remove
         if element == left_sublist[-1] or element == right_sublist[-1]:
-            found_parent == current_parent
+            found_parent = current_parent
         elif element in left_sublist:
             current_sublist = left_sublist
         else:
@@ -43,8 +44,11 @@ def find_parent(height, element):
     return found_parent
 
 def test_case(h, q, p):
+    print "Test case for", q,
     if (p != solution(h, q)):
-        print "Test case for", q, "failed."
+        print "FAILED."
+    else:
+        print "passed." 
 
 def main():
     # Run test cases
