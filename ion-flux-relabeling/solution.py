@@ -3,18 +3,15 @@
 # q is the list of elements in tree for which 
 # parents are to be found
 def solution(h, q):
-    p = [find_parent(h, i) for i in q]
-    # print p # TODO: remove
-    return p
+    return [find_parent(h, i) for i in q]
 
 # Returns a parent for a given node of the tree
 def find_parent(height, element):
-    # print "height, element are", height, element TODO: remove
+    # Return -1 if no parent exists or element doesn't
+    # belong to the tree
     absolute_parent = (2**height - 1)
     if element >= absolute_parent:
         return -1
-    
-    # Begin the sublisting algorithm.
     
     # Rules of the binary tree:
     # 1. It is a perfect binary tree
@@ -27,14 +24,12 @@ def find_parent(height, element):
     found_parent     = 0
     left_sublist     = []
     right_sublist    = []
+    # Begin the sublisting algorithm
     while found_parent == 0:
-        # print "current list is", current_sublist TODO: remove
         current_parent  = current_sublist[-1]
         current_height -= 1
         left_sublist    = current_sublist[ : (2**current_height - 1) ]
         right_sublist   = current_sublist[ (2**current_height - 1) : -1 ]
-        # print "Left sublist is", left_sublist TODO: remove
-        # print "Right sublist is", right_sublist TODO: remove
         if element == left_sublist[-1] or element == right_sublist[-1]:
             found_parent = current_parent
         elif element in left_sublist:
