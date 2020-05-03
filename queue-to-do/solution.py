@@ -1,5 +1,14 @@
 def solution(start, length):
-    return 100
+    partition_position  = length
+    current_xor_result  = 0
+    current_employee_id = start
+    while partition_position > 0:
+        for employee_position in range(length):
+            if employee_position < partition_position:
+                current_xor_result ^= current_employee_id
+            current_employee_id += 1
+        partition_position -= 1
+    return current_xor_result
 
 def test_case(start, length, expected_result):
     print "Test for ( " + str(start) + ", " + str(length) + " ) ",
