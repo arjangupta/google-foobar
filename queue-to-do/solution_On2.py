@@ -30,6 +30,7 @@ def main():
     test_case(1, 1, 1)
     test_case((2*10**9), 2, (2*10**9))
     test_case((2*10**9), 10, (2*10**9))
+    test_case((2*10**9)-1, 2, 2047)
 
 if __name__ == "__main__":
     main()
