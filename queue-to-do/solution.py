@@ -1,9 +1,11 @@
 def solution(start, length):
     current_total  = 0
     current_length = length
+    current_start  = start
     for i in range(length):
-        row_total = summation_of_xors(start + i * length - 1) ^ summation_of_xors(start + (i + 1) * (length - 1))
-        current_total ^= row_total
+        row_total = summation_of_xors(current_start - 1) ^ summation_of_xors(current_start + current_length - 1)
+        current_total  ^= row_total
+        current_start  += length
         current_length -= 1
     return current_total
 
