@@ -1,29 +1,25 @@
 def solution(l):
-    lucky_triples_list = []
+    lucky_pairs_spread = [0] * len(l)
+    lucky_triplets = []
     for i in range(len(l)):
-        rest_of_the_list = l[i+1:]
-        if l[i] == 1:
-            grow_lucky_list(rest_of_the_list, l[i], lucky_triples_list)
-        else:
-            divs_shortlist = divisible_short_list(l[i], rest_of_the_list)
-            grow_lucky_list(divs_shortlist, l[i], lucky_triples_list)
-    return len(lucky_triples_list)
-
-def divisible_short_list(divisor, l):
-    shortlist = []
-    for i in l:
-        if i % divisor == 0:
-            shortlist.append(i)
-    return shortlist
-
-# Find divisible pairs and append lucky list
-def grow_lucky_list(l, initial_divisor, lucky_triples_list):
-    for i in range(len(l)):
-        for lj in l[i+1:]:
-            if lj % l[i] == 0:
-                lucky_triplet = [initial_divisor, l[i], lj]
-                if lucky_triplet not in lucky_triples_list:
-                    lucky_triples_list.append(lucky_triplet)
+        pairs = []
+        first_sublist = l[:i]
+        for j in range(len(first_sublist)):
+            if l[i] % first_sublist[j] == 0:
+                lucky_pairs_spread[i] += 1
+                pair = [first_sublist[j], l[i]]
+                pairs.append(pair)
+        second_sublist = l[i+1:]
+        for k in range(len(second_sublist)):
+            if second_sublist[k] % l[i] == 0:
+                for pair in pairs:
+                    print "pair", pair
+                    triplet = pair
+                    triplet.append(second_sublist[k])
+                    if triplet not in lucky_triplets:
+                        print triplet, "final appendable"
+                        lucky_triplets.append(triplet)
+    return len(lucky_triplets)
 
 def test_case(l, expected_result):
     print "Test for", l,
